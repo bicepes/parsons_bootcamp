@@ -1,9 +1,25 @@
-void setup() {
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class homework_1 extends PApplet {
+
+public void setup() {
   // image canvas 1090 x 755
-  size(1090, 755);
+  
 }
 
-void draw() {
+public void draw() {
 
   // normalizing all styles settings
   noStroke();
@@ -20,7 +36,7 @@ void draw() {
 }
 
 // function for drawing top left circles
-void draw_circle_1() {
+public void draw_circle_1() {
   // define group 1 centers
   int x = 275/2;
   int y = 275/2;
@@ -46,7 +62,7 @@ void draw_circle_1() {
 }
 
 // function for drawing bottom left circles
-void draw_circle_2() {
+public void draw_circle_2() {
   // define group 2 centers
   int x = 109;
   int y = 563;
@@ -62,7 +78,7 @@ void draw_circle_2() {
 }
 
 // draw lines next to the top left circles
-void draw_line_1() {
+public void draw_line_1() {
   //vertical line
   line(362,63,362,263);
 
@@ -80,7 +96,7 @@ void draw_line_1() {
 }
 
 // draw the left triangle with elements inside
-void draw_triangle_1() {
+public void draw_triangle_1() {
   fill(165, 206, 208);
   triangle(137,431,363,186,682,467);
 
@@ -88,8 +104,18 @@ void draw_triangle_1() {
 }
 
 // draw the center arcs groups
-void draw_arc_1() {
+public void draw_arc_1() {
   strokeWeight(2);
   line(360,500,833,510);
 
+}
+  public void settings() {  size(1090, 755); }
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "homework_1" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
+  }
 }
