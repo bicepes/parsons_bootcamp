@@ -12,7 +12,7 @@ import java.io.InputStream;
 import java.io.OutputStream; 
 import java.io.IOException; 
 
-public class day_1 extends PApplet {
+public class lecture_1 extends PApplet {
 
 int x = 50;
 int y = 250;
@@ -46,7 +46,7 @@ public void draw() {
 }
   public void settings() {  size(500, 500); }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "day_1" };
+    String[] appletArgs = new String[] { "lecture_1" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {
