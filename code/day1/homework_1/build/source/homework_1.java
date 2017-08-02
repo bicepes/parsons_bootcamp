@@ -26,7 +26,7 @@ public void draw() {
   // fill the background with color
   background(243, 226, 198);
 
-  //draw shapes
+  // draw shapes
   draw_circle_1();
   draw_circle_2();
   draw_triangle_2();
@@ -149,7 +149,7 @@ public void draw_arc_1() {
   int y = 505;
   int diameter = 94;
 
-  //  // first arc from left
+  // draw arcs from the left
   fill(255, 255, 255);
   arc(x,y,diameter,diameter,PI,2*PI,CHORD);
   arc(x+diameter,y,diameter,diameter,PI,2*PI,CHORD);
