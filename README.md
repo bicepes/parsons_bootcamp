@@ -7,5 +7,8 @@ See the program official website at [http://bootcamp.parsons.edu](http://bootcam
 ## Notes  
 All lecture notes can be found in [here](./notes.pdf)
 
+## Mastery Project
+A pen of my mastery project can be found on [CodePen](https://codepen.io/kevinfan23/pen/prbLVG)  
+
 ## License
 All resources are released under MIT License  
