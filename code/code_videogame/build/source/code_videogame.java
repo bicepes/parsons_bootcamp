@@ -154,31 +154,29 @@ public void keyPressed() {
       default: break;
     }
   }
-  // else if (stage_bb && !stage_3) {
-  //   switch (keyCode) {
-  //     case 89: {
-  //       stage_2 = true;
-  //       stage_1b = true;
-  //
-  //       println("haha");
-  //       clearScreen();
-  //       // image(sponge_bob, 340, 160, 120, 120);
-  //       printScreen("It's me!", 360, 25);
-  //       printScreen("Hit ENTER to restart!", 410, 25);
-  //       break;
-  //     }
-  //     case 78: {
-  //       stage_2 = true;
-  //       stage_1b = true;
-  //
-  //       clearScreen();
-  //       //printScreen("Is that person still alive?", 200, 25);
-  //       printScreen("y/n", 250, 25);
-  //       break;
-  //     }
-  //     default: break;
-  //   }
-  // }
+  else if (stage_1b && !stage_2) {
+    switch (keyCode) {
+      case 89: {
+        stage_2 = true;
+        stage_2a = true;
+
+        clearScreen();
+        printScreen("Is that person under the age of 50?", 200, 25);
+        printScreen("y/n", 250, 25);
+        break;
+      }
+      case 78: {
+        stage_2 = true;
+        stage_2b = true;
+
+        clearScreen();
+        printScreen("Does that person like Apple?", 200, 25);
+        printScreen("y/n", 250, 25);
+        break;
+      }
+      default: break;
+    }
+  }
   if (key == 'q' || key == 'Q') {
     clearStages();
   }
