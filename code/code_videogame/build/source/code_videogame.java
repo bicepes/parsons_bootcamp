@@ -32,7 +32,6 @@ boolean stage_2a = false;
 boolean stage_2b = false;
 
 boolean stage_3 = false;
-boolean stage_4 = false;
 
 public void setup() {
   background(0);
@@ -172,6 +171,52 @@ public void keyPressed() {
         clearScreen();
         printScreen("Does that person like Apple?", 200, 25);
         printScreen("y/n", 250, 25);
+        break;
+      }
+      default: break;
+    }
+  }
+  else if (stage_2a && !stage_3) {
+    switch (keyCode) {
+      case 89: {
+        game_completed = true;
+
+        clearScreen();
+        image(mark_zuckerberg, 340, 160, 120, 120);
+        printScreen("It's me!", 360, 25);
+        printScreen("Hit ENTER to restart!", 410, 25);
+        break;
+      }
+      case 78: {
+        game_completed = true;
+
+        clearScreen();
+        image(bill_gates, 340, 160, 120, 120);
+        printScreen("It's me!", 360, 25);
+        printScreen("Hit ENTER to restart!", 410, 25);
+        break;
+      }
+      default: break;
+    }
+  }
+  else if (stage_2b && !stage_3) {
+    switch (keyCode) {
+      case 89: {
+        game_completed = true;
+
+        clearScreen();
+        image(steve_jobs, 340, 160, 120, 120);
+        printScreen("It's me!", 360, 25);
+        printScreen("Hit ENTER to restart!", 410, 25);
+        break;
+      }
+      case 78: {
+        game_completed = true;
+
+        clearScreen();
+        image(george_washington, 340, 160, 120, 120);
+        printScreen("It's me!", 360, 25);
+        printScreen("Hit ENTER to restart!", 410, 25);
         break;
       }
       default: break;
