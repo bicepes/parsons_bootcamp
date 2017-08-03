@@ -19,9 +19,18 @@ PImage bill_gates, mark_zuckerberg,
 PFont font;
 
 // bool variables for tracking stages of the game
+boolean game_completed = false;
+boolean stage_cover = true;
 boolean stage_0 = false;
+
 boolean stage_1 = false;
+boolean stage_1a = false;
+boolean stage_1b = false;
+
 boolean stage_2 = false;
+boolean stage_2a = false;
+boolean stage_2b = false;
+
 boolean stage_3 = false;
 boolean stage_4 = false;
 
@@ -64,6 +73,13 @@ public void printScreen(String str, int y_position, int size) {
     textFont(font, (size));
     textAlign(CENTER);
     text(str, width/2, y_position);
+    textFont(font, (15));
+
+    if (!stage_cover) {
+      fill(224, 108, 117);
+      textAlign(CORNER);
+      text("Quit", 20, 40);
+    }
 }
 
 public void clearScreen() {
@@ -71,8 +87,9 @@ public void clearScreen() {
 }
 
 public void mousePressed() {
-  if (mousePressed) {
+  if (mousePressed && !stage_0) {
     stage_0 = true;
+    stage_cover = false;
 
     clearScreen();
     printScreen("Is that a cartoon character?", 200, 25);
@@ -81,16 +98,100 @@ public void mousePressed() {
 }
 
 public void keyPressed() {
-  if (keyCode == ENTER && stage_0 == false) {
-    stage_0 = true;
+  if (!stage_0 && !game_completed) {
+    if (keyCode == ENTER && !stage_0) {
+      stage_0 = true;
+      stage_cover = false;
 
-    clearScreen();
-    printScreen("Is that a cartoon character?", 200, 25);
-    printScreen("y/n", 250, 25);
+      clearScreen();
+      printScreen("Is that a cartoon character?", 200, 25);
+      printScreen("y/n", 250, 25);
+    }
   }
-  else {
-    println(keyCode);
+  else if (stage_0 && !stage_1) {
+    switch (keyCode) {
+      case 89: {
+        stage_1 = true;
+        stage_1a = true;
+
+        clearScreen();
+        printScreen("Does that character live under water?", 200, 25);
+        printScreen("y/n", 250, 25);
+        break;
+      }
+      case 78: {
+        stage_1 = true;
+        stage_1b = true;
+
+        clearScreen();
+        printScreen("Is that person still alive?", 200, 25);
+        printScreen("y/n", 250, 25);
+        break;
+      }
+      default: break;
+    }
   }
+  else if (stage_1a && !stage_2) {
+    switch (keyCode) {
+      case 89: {
+        game_completed = true;
+
+        clearScreen();
+        image(sponge_bob, 340, 160, 120, 120);
+        printScreen("It's me!", 360, 25);
+        printScreen("Hit ENTER to restart!", 410, 25);
+        break;
+      }
+      case 78: {
+        game_completed = true;
+
+        clearScreen();
+        image(mickey_mouse, 340, 160, 120, 120);
+        printScreen("It's me!", 360, 25);
+        printScreen("Hit ENTER to restart!", 410, 25);
+        break;
+      }
+      default: break;
+    }
+  }
+  // else if (stage_bb && !stage_3) {
+  //   switch (keyCode) {
+  //     case 89: {
+  //       stage_2 = true;
+  //       stage_1b = true;
+  //
+  //       println("haha");
+  //       clearScreen();
+  //       // image(sponge_bob, 340, 160, 120, 120);
+  //       printScreen("It's me!", 360, 25);
+  //       printScreen("Hit ENTER to restart!", 410, 25);
+  //       break;
+  //     }
+  //     case 78: {
+  //       stage_2 = true;
+  //       stage_1b = true;
+  //
+  //       clearScreen();
+  //       //printScreen("Is that person still alive?", 200, 25);
+  //       printScreen("y/n", 250, 25);
+  //       break;
+  //     }
+  //     default: break;
+  //   }
+  // }
+  if (key == 'q' || key == 'Q') {
+    clearStages();
+  }
+  else if (game_completed && keyCode == ENTER) {
+    clearStages();
+    game_completed = false;
+  }
+}
+
+public void clearStages() {
+  stage_0 = stage_1 = stage_1a = stage_1b = stage_2 = stage_2a
+  = stage_3 = false;
+  stage_cover = true;
 }
   public void settings() {  size(800, 600); }
   static public void main(String[] passedArgs) {
