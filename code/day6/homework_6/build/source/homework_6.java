@@ -22,7 +22,7 @@ int center_y;
 float r_default;
 float speed;
 int size_default;
-PVector[] pos = new PVector[500];
+PVector[] pos = new PVector[1000];
 
 public void setup()
 {
@@ -31,11 +31,7 @@ public void setup()
   r_default = 200;
   size_default = 2;
 
-  // millis()
-  // https://processing.org/reference/millis_.html
-  speed = millis()/1000.0f;
-
-  for (int i = 0; i < 500; i++) {
+  for (int i = 0; i < 1000; i++) {
     pos[i] = new PVector(random(-2, 2), random(-2, 2));
   }
 
@@ -47,15 +43,21 @@ public void draw()
   fill(0);
   rect(0, 0, width, height);
 
-  for (int i = 0; i < 500; i++) {
+  for (int i = 0; i < 1000; i++) {
 
-    float r = random(0, 50) + r_default;
+    float r = r_default;
 
     int size = (int)(size_default + random(0, 2));
-    // int x = (int)(center_x+r*cos(pos[i].x + speed));
-    // int y = (int)(center_y+r*sin(pos[i].y + speed));
-    int x = (int)(center_x+200*cos(pos[i].x));
-    int y = (int)(center_y+200*sin(pos[i].y));
+
+    // millis()
+    // https://processing.org/reference/millis_.html
+    speed = millis()/1000.0f;
+
+    int x = (int)(center_x+r*cos(pos[i].x + speed));
+    int y = (int)(center_y+r*sin(pos[i].y + speed));
+
+    // int x = (int)(center_x+200*cos(pos[i].x));
+    // int y = (int)(center_y+200*sin(pos[i].y));
 
     fill(255);
     ellipse(x, y, size, size);
