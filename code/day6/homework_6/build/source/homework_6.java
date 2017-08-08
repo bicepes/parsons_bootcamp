@@ -1,3 +1,19 @@
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class homework_6 extends PApplet {
+
 // Move element along a circle
 // https://processing.org/discourse/beta/num_1264000877.html
 
@@ -8,7 +24,7 @@ float speed;
 int size_default;
 PVector[] pos = new PVector[500];
 
-void setup()
+public void setup()
 {
   center_x = width/2;
   center_y = height/2;
@@ -17,16 +33,16 @@ void setup()
 
   // millis()
   // https://processing.org/reference/millis_.html
-  speed = millis()/1000.0;
+  speed = millis()/1000.0f;
 
   for (int i = 0; i < 500; i++) {
     pos[i] = new PVector(random(-2, 2), random(-2, 2));
   }
 
-  size(1200, 800);
+  
 }
 
-void draw()
+public void draw()
 {
   fill(0);
   rect(0, 0, width, height);
@@ -58,4 +74,14 @@ void draw()
   //   fill(255);
   //   ellipse(x, y, size, size);
   // }
+}
+  public void settings() {  size(1200, 800); }
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "homework_6" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
+  }
 }
