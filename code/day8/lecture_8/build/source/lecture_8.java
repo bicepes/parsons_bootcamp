@@ -14,8 +14,27 @@ import java.io.IOException;
 
 public class lecture_8 extends PApplet {
 
-// Create a class called Dog
+Dog ham;
+Dog sparky;
 
+public void setup() {
+  //color c = color(255, 0, 0);
+  ham = new Dog("Bark!");
+  sparky = new Dog("Hi");
+
+  println(ham.legs);
+  println(ham.ears);
+  println(ham.fur);
+
+  ham.bark();
+  sparky.bark();
+
+}
+
+public void draw() {
+
+}
+// Create a class called Dog
 class Dog {
   // properties
   int legs;
@@ -48,27 +67,6 @@ class Dog {
   public void walk() {
     //
   }
-}
-
-Dog ham;
-Dog sparky;
-
-public void setup() {
-  //color c = color(255, 0, 0);
-  ham = new Dog("Bark!");
-  sparky = new Dog("Hi");
-
-  println(ham.legs);
-  println(ham.ears);
-  println(ham.fur);
-
-  ham.bark();
-  sparky.bark();
-
-}
-
-public void draw() {
-
 }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "lecture_8" };
