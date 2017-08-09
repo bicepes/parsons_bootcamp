@@ -28,4 +28,10 @@ class Ball {
       velocity.y *= -1;
     }
   }
+
+  void run() {
+    update();
+    display();
+    checkEdges();
+  }
 }

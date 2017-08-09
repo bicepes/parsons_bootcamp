@@ -38,25 +38,30 @@ public class lecture_8 extends PApplet {
 // Re-write the ball movement using class
 PVector gravity;
 Ball ball_1;
+Ball ball_2;
+
 
 public void setup() {
   
+  background(30);
   gravity = new PVector(0, 0.1f);
 
   ball_1 = new Ball(15, color(255), new PVector(4, 5));
+  ball_2 = new Ball(25, color(255, 0, 255), new PVector(-4, -5));
 }
 
 public void draw() {
   background(30);
 
-
-  smooth(128);
+  // draw ball 1
   noStroke();
   ball_1.velocity.add(gravity);
-  ball_1.update();
-  ball_1.checkEdges();
-  ball_1.display();
-  //ellipse(position.x, position.y, size, size);
+  ball_1.run();
+
+  // draw ball 2
+  ball_2.velocity.add(gravity);
+  ball_2.run();
+
 }
 class Ball {
   PVector position;
@@ -87,6 +92,12 @@ class Ball {
     if (position.y > height - radius || position.y < 0 + radius) {
       velocity.y *= -1;
     }
+  }
+
+  public void run() {
+    update();
+    display();
+    checkEdges();
   }
 }
 // Create a class called Dog
