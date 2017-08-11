@@ -4,6 +4,49 @@ body{
     background: #252525;
 }
 
+#photo-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 9999;
+  background: rgba(0, 0, 0, .5);
+  top: 0px;
+  display: none;
+}
+
+.direction {
+  color: white;
+  font-size: 100px;
+  top: 40vh;
+  position: fixed;
+  z-index: 999;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+}
+
+#left {
+  left: 5%;
+}
+
+#left:hover {
+  left: 4.5%;
+}
+
+#right {
+  right: 5%;
+}
+
+#right:hover {
+  right: 4.5%;
+}
+
+#photo {
+  width: 70%;
+  height: 100vh;
+  margin: auto 15%;
+  overflow: auto;
+}
+
 #gallery{
      /*flex makes sure that the images are not align at the bottom, try without flex*/
      display: flex;
