@@ -49,6 +49,26 @@ function close() {
   photoctn.style.display = 'none';
 }
 
+function switchImg(direction) {
+  var nextImg = 0;
+
+  // have to use parseInt on both integers, fuck javascript
+  nextImg = parseInt(curImg) + parseInt(direction);
+  console.log(nextImg);
+
+  if (nextImg < 0) {
+    console.log(nextImg);
+    nextImg = imageNum - 1;
+  }
+  if (nextImg > imageNum - 1) {
+    nextImg = 0;
+  }
+  curImg = nextImg;
+  var newImg = document.createElement('img');
+  newImg.src = ('./image/' + curImg + '.jpg');
+  popUp(newImg);
+}
+
 // function loadImages1() {
 //   for (var i = 0; i < imageNum; i++) {
 //     var newImg = document.createElement('img');
