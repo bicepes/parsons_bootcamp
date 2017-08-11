@@ -21,7 +21,7 @@ body{
   position: fixed;
   z-index: 999;
   transition: all .3s ease-in-out;
-  cursor: pointer;
+  cursor: zoom-in;
 }
 
 #left {
@@ -44,7 +44,16 @@ body{
   width: 70%;
   height: 100vh;
   margin: auto 15%;
-  overflow: auto;
+  background: black;
+  /*overflow: auto;*/
+  cursor: zoom-out;
+}
+
+#pic {
+  position: relative;
+  top: 50%;
+  margin-left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #gallery{
