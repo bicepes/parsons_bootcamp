@@ -21,7 +21,7 @@ body{
   position: fixed;
   z-index: 999;
   transition: all .3s ease-in-out;
-  cursor: zoom-in;
+  cursor: pointer;
 }
 
 #left {
