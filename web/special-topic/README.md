@@ -2,4 +2,4 @@
 An example in Parsons School of Design Bootcamp 2017    
 
 ## Demo  
-![ghost](./ghost.gif/)
+![ghost](./ghost.gif/?style=centerme)
