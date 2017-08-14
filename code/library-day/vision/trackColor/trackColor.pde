@@ -23,7 +23,7 @@ void draw(){
 
   float mostRed = 500;
   int closestX = 0;
-  int closestY=0;
+  int closestY = 0;
   for (int x = 0; x<video.width; x++){
     for(int y = 0; y<video.height; y++){
       int loc = x+y*video.width; //LOCATION OF PIXELS
@@ -47,7 +47,7 @@ void draw(){
     }
   }
 
-  if(count>0){
+  if(count > 0){
     avgX = avgX/count;
     avgY = avgY/count;
     fill(trackColor);
@@ -56,11 +56,11 @@ void draw(){
     ellipse(avgX, avgY, 16, 16);
   }
 }
-  void mousePressed(){
-    int loc = mouseX + mouseY*video.width;
-    trackColor = video.pixels[loc];
-  }
-  void captureEvent(Capture video){
-    video.read();
+void mousePressed(){
+  int loc = mouseX + mouseY*video.width;
+  trackColor = video.pixels[loc];
+}
 
+void captureEvent(Capture video){
+  video.read();
 }
