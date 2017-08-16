@@ -1,22 +1,20 @@
-// Example 13-8: Recursion
+size(200, 200);
 
-void setup() {
-  size(600, 450);
+// Before we deal with pixels
+loadPixels();
+
+// Loop through every pixel
+for (int i = 0; i < pixels.length; i++ ) { // We can get the length of the pixels array just like with any array.
+
+  // Pick a random number, 0 to 255
+  float rand = random(255);
+
+  // Create a grayscale color based on random number
+  color c = color(155);
+
+  // Set pixel at that location to random color
+  pixels[i] = c; // We can access individual elements of the pixels array via an index, just like with any other array.
 }
 
-void draw() {
-  background(255);
-  stroke(0);
-  noFill();
-  drawCircle(width/2, height/2, 300);
-}
-
-void drawCircle(float x, float y, float radius) {
-    ellipse(x, y, radius, radius);
-    if(radius > 8) {
-      drawCircle(x + radius/2, y, radius/2);
-      drawCircle(x – radius/2, y, radius/2);
-      drawCircle(x, y + radius/2, radius/2);
-      drawCircle(x, y – radius/2, radius/2);
-    }
-}
+// When we are finished dealing with pixels
+updatePixels();
