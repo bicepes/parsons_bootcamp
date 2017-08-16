@@ -1,5 +1,15 @@
+// import Minim sound library
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+
+// muFont custom fonts
 PFont myFont;
 
+// shape global variables
 Shape sample_shape;
 Shape sound_shape;
 int sample_width;
@@ -13,8 +23,14 @@ void setup() {
   colorMode(RGB);
   background(52, 46, 61);
 
+  // configure frame frameRate
+  frameRate(30);
+
   // load font
   myFont = createFont("data/RobotoMono-Light.ttf", 32);
+
+  // display prompt
+  drawPrompt();
 
   // setup shapes
   sample_shape = new Shape(round(random(0, 3)), false);
@@ -25,30 +41,22 @@ void setup() {
   sample_shape_code = sample_shape.shape;
 
   sound_shape = new Shape(sample_shape_code, sample_width, sample_height, sample_color, true);
-  drawPrompt();
 }
 
 void draw() {
+  colorMode(RGB);
+  background(52, 46, 61);
+  
   smooth();
+  drawPrompt();
   sample_shape.display();
   sound_shape.display();
-
-  drawPrompt();
+  sound_shape.update();
 }
 
 // testing
 void mousePressed() {
-  colorMode(RGB);
-  background(52, 46, 61);
-
-  sample_shape = new Shape(round(random(0, 3)), false);
-
-  sample_width = sample_shape.shape_width;
-  sample_height = sample_shape.shape_height;
-  sample_color = sample_shape.hue;
-  sample_shape_code = sample_shape.shape;
-
-  sound_shape = new Shape(sample_shape_code, sample_width, sample_height, sample_color, true);
+  reset();
 }
 
 // help function to draw button
@@ -61,5 +69,20 @@ void drawPrompt() {
   textFont(myFont);
   textSize(32);
   textAlign(CENTER);
-  text("Click to change shape", width/2, height - 100);
+  scale(1);
+  text("Click to change shape", width/2, height - 150);
+}
+
+void reset() {
+  colorMode(RGB);
+  background(52, 46, 61);
+
+  sample_shape = new Shape(round(random(0, 3)), false);
+
+  sample_width = sample_shape.shape_width;
+  sample_height = sample_shape.shape_height;
+  sample_color = sample_shape.hue;
+  sample_shape_code = sample_shape.shape;
+
+  sound_shape = new Shape(sample_shape_code, sample_width, sample_height, sample_color, true);
 }

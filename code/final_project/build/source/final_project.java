@@ -3,6 +3,13 @@ import processing.data.*;
 import processing.event.*; 
 import processing.opengl.*; 
 
+import ddf.minim.*; 
+import ddf.minim.analysis.*; 
+import ddf.minim.effects.*; 
+import ddf.minim.signals.*; 
+import ddf.minim.spi.*; 
+import ddf.minim.ugens.*; 
+
 import java.util.HashMap; 
 import java.util.ArrayList; 
 import java.io.File; 
@@ -14,8 +21,18 @@ import java.io.IOException;
 
 public class final_project extends PApplet {
 
+// import Minim sound library
+
+
+
+
+
+
+
+// muFont custom fonts
 PFont myFont;
 
+// shape global variables
 Shape sample_shape;
 Shape sound_shape;
 int sample_width;
@@ -29,8 +46,14 @@ public void setup() {
   colorMode(RGB);
   background(52, 46, 61);
 
+  // configure frame frameRate
+  frameRate(30);
+
   // load font
   myFont = createFont("data/RobotoMono-Light.ttf", 32);
+
+  // display prompt
+  drawPrompt();
 
   // setup shapes
   sample_shape = new Shape(round(random(0, 3)), false);
@@ -41,30 +64,22 @@ public void setup() {
   sample_shape_code = sample_shape.shape;
 
   sound_shape = new Shape(sample_shape_code, sample_width, sample_height, sample_color, true);
-  drawPrompt();
 }
 
 public void draw() {
+  colorMode(RGB);
+  background(52, 46, 61);
+  
   smooth();
+  drawPrompt();
   sample_shape.display();
   sound_shape.display();
-
-  drawPrompt();
+  sound_shape.update();
 }
 
 // testing
 public void mousePressed() {
-  colorMode(RGB);
-  background(52, 46, 61);
-
-  sample_shape = new Shape(round(random(0, 3)), false);
-
-  sample_width = sample_shape.shape_width;
-  sample_height = sample_shape.shape_height;
-  sample_color = sample_shape.hue;
-  sample_shape_code = sample_shape.shape;
-
-  sound_shape = new Shape(sample_shape_code, sample_width, sample_height, sample_color, true);
+  reset();
 }
 
 // help function to draw button
@@ -77,7 +92,22 @@ public void drawPrompt() {
   textFont(myFont);
   textSize(32);
   textAlign(CENTER);
-  text("Click to change shape", width/2, height - 100);
+  scale(1);
+  text("Click to change shape", width/2, height - 150);
+}
+
+public void reset() {
+  colorMode(RGB);
+  background(52, 46, 61);
+
+  sample_shape = new Shape(round(random(0, 3)), false);
+
+  sample_width = sample_shape.shape_width;
+  sample_height = sample_shape.shape_height;
+  sample_color = sample_shape.hue;
+  sample_shape_code = sample_shape.shape;
+
+  sound_shape = new Shape(sample_shape_code, sample_width, sample_height, sample_color, true);
 }
 class Shape {
   PVector position;
@@ -86,6 +116,7 @@ class Shape {
   int shape;
   int shape_width;
   int shape_height;
+  float shape_scale;
 
   int hue;
   boolean sound_shape;
@@ -93,6 +124,8 @@ class Shape {
   Shape(int random_shape, boolean is_sound_shape) {
     shape = random_shape;
     sound_shape = is_sound_shape;
+    shape_scale = 1;
+
     // set width and height of the shape
     switch(shape) {
       case 0:
@@ -135,6 +168,7 @@ class Shape {
 
     shape_width = s_width;
     shape_height = s_height;
+    shape_scale = 0.1f;
 
     colorMode(HSB);
     hue = c;
@@ -158,27 +192,79 @@ class Shape {
 
     switch(shape) {
       case 0:
-        triangle(
-          position.x - shape_width/2, position.y + shape_height/3,
-          position.x, position.y - (shape_height*2)/3,
-          position.x + shape_width/2, position.y + shape_height/3
-        );
+        if (sound_shape) {
+          pushMatrix();
+          translate(position.x, position.y);
+          scale(shape_scale);
+          triangle(
+            0 - shape_width/2, 0 + shape_height/3,
+            0, 0 - (shape_height*2)/3,
+            0 + shape_width/2, 0 + shape_height/3
+          );
+          popMatrix();
+        }
+        else {
+          triangle(
+            position.x - shape_width/2, position.y + shape_height/3,
+            position.x, position.y - (shape_height*2)/3,
+            position.x + shape_width/2, position.y + shape_height/3
+          );
+        }
         break;
       case 1:
-        rect(position.x, position.y, shape_width, shape_height);
+        if (sound_shape) {
+          pushMatrix();
+          translate(position.x, position.y);
+          scale(shape_scale);
+          rect(0, 0, shape_width, shape_height);
+          popMatrix();
+        }
+        else {
+          rect(position.x, position.y, shape_width, shape_height);
+        }
         break;
       case 2:
-        rect(position.x, position.y, shape_width, shape_height);
+        if (sound_shape) {
+          pushMatrix();
+          translate(position.x, position.y);
+          scale(shape_scale);
+          rect(0, 0, shape_width, shape_height);
+          popMatrix();
+        }
+        else {
+          rect(position.x, position.y, shape_width, shape_height);
+        }
         break;
       case 3:
-        ellipse(position.x, position.y, shape_width, shape_height);
+        if (sound_shape) {
+          pushMatrix();
+          translate(position.x, position.y);
+          scale(shape_scale);
+          ellipse(0, 0, shape_width, shape_height);
+          popMatrix();
+        }
+        else {
+          ellipse(position.x, position.y, shape_width, shape_height);
+        }
         break;
       default:
-        rect(position.x, position.y, shape_width, shape_height);
+        if (sound_shape) {
+          pushMatrix();
+          translate(position.x, position.y);
+          scale(shape_scale);
+          rect(0, 0, shape_width, shape_height);
+          popMatrix();
+        }
+        else {
+          rect(position.x, position.y, shape_width, shape_height);
+        }
         break;
     }
   }
 
+  public void update() {
+    shape_scale = random(0, 2);
+  }
   // void update(int scale) {
   //   position.add(velocity);
   // }
