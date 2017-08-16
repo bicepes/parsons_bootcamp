@@ -1,3 +1,6 @@
+static final int SATURATION = 200;
+static final int BRIGHTNESS = 200;
+
 class Shape {
   PVector position;
 
@@ -18,8 +21,8 @@ class Shape {
     // set width and height of the shape
     switch(shape) {
       case 0:
-        shape_height = round(random(30, 400));
-        shape_width= round((shape_height/3)*sqrt(3)*2);
+        shape_width = round(random(30, 400));
+        shape_height = round((shape_width/2)/sqrt(3)*3);
         break;
       case 1:
         shape_width = round(random(30, 400));
@@ -40,7 +43,7 @@ class Shape {
     }
 
     colorMode(HSB);
-    hue = color(random(0, 255), 200, 200);
+    hue = color(random(10, 250), SATURATION, BRIGHTNESS);
 
     // set shape position
     if (sound_shape) {
@@ -72,7 +75,7 @@ class Shape {
   }
 
   void display() {
-    fill(0, 0, 0, 0);
+    fill(0, 0, 0, 0.7);
     stroke(hue);
     strokeWeight(8);
 
@@ -151,19 +154,9 @@ class Shape {
     }
   }
 
-  void update() {
-    shape_scale = random(0, 2);
+  void update(float sound_level, int sound_hue) {
+    shape_scale = sound_level;
+    colorMode(HSB);
+    hue = color(sound_hue, SATURATION, BRIGHTNESS);
   }
-  // void update(int scale) {
-  //   position.add(velocity);
-  // }
-  //
-  // // triangle(x1, y1, x2, y2, x3, y3)
-  // // rect(): By default, the first two parameters set the location of the upper-left corner, the third sets the width, and the fourth sets the height
-  // // ellipse(): By default, the first two parameters set the location, and the third and fourth parameters set the shape's width and height
-  //
-  // void display() {
-  //   fill(hue);
-  //   ellipse(position.x, position.y, radius*2, radius*2);
-  // }
 }
