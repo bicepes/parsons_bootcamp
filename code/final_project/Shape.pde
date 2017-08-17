@@ -1,5 +1,5 @@
-static final int SATURATION = 200;
-static final int BRIGHTNESS = 200;
+static final int SATURATION = 150;
+static final int BRIGHTNESS = 255;
 
 class Shape {
   PVector position;

@@ -2,6 +2,11 @@
 import ddf.minim.*;
 import ddf.minim.analysis.*;
 
+// global variables
+boolean is_success = false;
+int alpha = 1;
+int delta = 10;
+
 // audio analysis variables
 Minim minim;
 AudioInput voice_in;
@@ -14,8 +19,9 @@ int sampling_rate= 44100;
 float [] max= new float [sampling_rate/2];
 float max_frequency;
 
-// muFont custom fonts
+// muFont custom fonts & images
 PFont myFont;
+PImage spectrum;
 
 // shape global variables
 Shape sample_shape;
@@ -28,16 +34,17 @@ int hue;
 
 void setup() {
   // canvas setup
-  //fullScreen();
-  size(1280, 720);
+  fullScreen();
+  // size(1280, 720);
   colorMode(RGB);
   background(52, 46, 61);
 
   // configure frame frameRate
   frameRate(30);
 
-  // load font
+  // load font & image
   myFont = createFont("data/RobotoMono-Light.ttf", 32);
+  spectrum = loadImage("data/spectrum.jpg");
 
   // display prompt
   drawPrompt();
@@ -61,21 +68,46 @@ void setup() {
 }
 
 void draw() {
-  colorMode(RGB);
-  background(52, 46, 61);
 
-  smooth();
-  drawPrompt();
-  sample_shape.display();
-  sound_shape.display();
-  detectSound();
-  checkEqual();
+  if (!is_success) {
+    colorMode(RGB);
+    background(52, 46, 61);
 
+    // draw spectrum image
+    image(spectrum, 50, 20, 312, 80);
+
+    smooth();
+    drawPrompt();
+    sample_shape.display();
+    sound_shape.display();
+    detectSound();
+    checkEqual();
+  }
+  else {
+    colorMode(HSB);
+    background(sample_shape.hue);
+
+    colorMode(RGB);
+    fill(255, 255, 255, alpha);
+    // text("Click to change shape", 10, 10, 70, 80);
+    //fill(50);
+    textFont(myFont);
+    textSize(100);
+    textAlign(CENTER);
+    text("Success!", width/2, height/2);
+    alpha += delta;
+    if (alpha >= 255) {
+      alpha = 1;
+      is_success = false;
+      reset();
+    }
+  }
   //println(voice_in.mix.level());
 }
 
 // testing
 void mousePressed() {
+  //success();
   reset();
 }
 
@@ -90,7 +122,7 @@ void drawPrompt() {
   textSize(32);
   textAlign(CENTER);
   scale(1);
-  text("Click to change shape", width/2, height - 150);
+  text("Click to change shape", width/2, height - 100);
 }
 
 void detectSound() {
@@ -139,13 +171,12 @@ void detectSound() {
 
 void checkEqual() {
   if (abs(hue(sound_shape.hue) - hue(sample_shape.hue)) < 15) {
-    println("hue match");
+    // println("hue match");
 
     if (abs(sound_shape.shape_width - sample_shape.shape_width*scale) < 20) {
-      println("both match");
+      // println("both match");
       // change the color of the sample to green
-
-      reset();
+      success();
     }
   }
   // if (abs(sound_shape.shape_width - sample_shape.shape_width*scale) < 1) {
@@ -159,6 +190,11 @@ void checkEqual() {
   //     println("both match");
   //   }
   //}
+}
+
+void success() {
+  is_success = true;
+  //reset();
 }
 
 void reset() {

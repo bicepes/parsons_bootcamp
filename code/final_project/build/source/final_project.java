@@ -21,6 +21,13 @@ public class final_project extends PApplet {
 
 
 
+// global variables
+int [] colors;
+int colors_index;
+boolean is_success = false;
+int alpha = 1;
+int delta = 10;
+
 // audio analysis variables
 Minim minim;
 AudioInput voice_in;
@@ -33,8 +40,9 @@ int sampling_rate= 44100;
 float [] max= new float [sampling_rate/2];
 float max_frequency;
 
-// muFont custom fonts
+// muFont custom fonts & images
 PFont myFont;
+PImage spectrum;
 
 // shape global variables
 Shape sample_shape;
@@ -47,16 +55,18 @@ int hue;
 
 public void setup() {
   // canvas setup
-  //fullScreen();
   
+  // size(1280, 720);
   colorMode(RGB);
   background(52, 46, 61);
 
   // configure frame frameRate
   frameRate(30);
 
-  // load font
+  // load font & image
   myFont = createFont("data/RobotoMono-Light.ttf", 32);
+  spectrum = loadImage("data/spectrum.jpg");
+  colors = new int [] {color(255, 20, 97), color(24, 255, 146), color(90, 135, 255), color(251, 243, 140)};
 
   // display prompt
   drawPrompt();
@@ -80,21 +90,46 @@ public void setup() {
 }
 
 public void draw() {
-  colorMode(RGB);
-  background(52, 46, 61);
 
-  smooth();
-  drawPrompt();
-  sample_shape.display();
-  sound_shape.display();
-  detectSound();
-  checkEqual();
+  if (!is_success) {
+    colorMode(RGB);
+    background(52, 46, 61);
 
+    // draw spectrum image
+    image(spectrum, 50, 20, 312, 80);
+
+    smooth();
+    drawPrompt();
+    sample_shape.display();
+    sound_shape.display();
+    detectSound();
+    checkEqual();
+  }
+  else {
+    colorMode(HSB);
+    background(sample_shape.hue);
+
+    colorMode(RGB);
+    fill(255, 255, 255, alpha);
+    // text("Click to change shape", 10, 10, 70, 80);
+    //fill(50);
+    textFont(myFont);
+    textSize(100);
+    textAlign(CENTER);
+    text("Success!", width/2, height/2);
+    alpha += delta;
+    if (alpha >= 255) {
+      alpha = 1;
+      is_success = false;
+      reset();
+    }
+  }
   //println(voice_in.mix.level());
 }
 
 // testing
 public void mousePressed() {
+  //success();
   reset();
 }
 
@@ -109,7 +144,7 @@ public void drawPrompt() {
   textSize(32);
   textAlign(CENTER);
   scale(1);
-  text("Click to change shape", width/2, height - 150);
+  text("Click to change shape", width/2, height - 100);
 }
 
 public void detectSound() {
@@ -158,16 +193,12 @@ public void detectSound() {
 
 public void checkEqual() {
   if (abs(hue(sound_shape.hue) - hue(sample_shape.hue)) < 15) {
-    println("hue match");
+    // println("hue match");
 
     if (abs(sound_shape.shape_width - sample_shape.shape_width*scale) < 20) {
-      println("both match");
+      // println("both match");
       // change the color of the sample to green
-      sample_shape.update(2.0f, 105);
-      sample_shape.update(1.0f, 105);
-      delay(5000);
-
-      reset();
+      success();
     }
   }
   // if (abs(sound_shape.shape_width - sample_shape.shape_width*scale) < 1) {
@@ -183,6 +214,12 @@ public void checkEqual() {
   //}
 }
 
+public void success() {
+  is_success = true;
+  colors_index = round(random(0, 3));
+  //reset();
+}
+
 public void reset() {
   colorMode(RGB);
   background(52, 46, 61);
@@ -196,8 +233,8 @@ public void reset() {
 
   sound_shape = new Shape(sample_shape_code, sample_width, sample_height, hue, true);
 }
-static final int SATURATION = 200;
-static final int BRIGHTNESS = 200;
+static final int SATURATION = 150;
+static final int BRIGHTNESS = 255;
 
 class Shape {
   PVector position;
@@ -358,8 +395,28 @@ class Shape {
     hue = color(sound_hue, SATURATION, BRIGHTNESS);
   }
 }
+//color [] colors = {color(255, 20, 97), color(24, 255, 146), color(90, 135, 255), color(251, 243, 140)};
+final static int star_num = 50;
 
-  public void settings() {  size(1280, 720); }
+class Star {
+  float radius;
+  PVector position;
+  PVector speed;
+
+  Star() {
+    position.x = random(50, width - 50);
+    position.y =  random(50, height - 50);
+  }
+
+  // void display() {
+  //   colorMode(RGB);
+  //   for (int i = 0; i < star_num; i++) {
+  //     fill(colors[round(random(0, 3))]);
+  //     ellipse(position.x, position.y, radius, radius);
+  //   }
+  // }
+}
+  public void settings() {  fullScreen(); }
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "final_project" };
     if (passedArgs != null) {
