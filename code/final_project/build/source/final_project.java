@@ -22,8 +22,6 @@ public class final_project extends PApplet {
 
 
 // global variables
-int [] colors;
-int colors_index;
 boolean is_success = false;
 int alpha = 1;
 int delta = 10;
@@ -43,6 +41,7 @@ float max_frequency;
 // muFont custom fonts & images
 PFont myFont;
 PImage spectrum;
+
 
 // shape global variables
 Shape sample_shape;
@@ -65,8 +64,7 @@ public void setup() {
 
   // load font & image
   myFont = createFont("data/RobotoMono-Light.ttf", 32);
-  spectrum = loadImage("data/spectrum.jpg");
-  colors = new int [] {color(255, 20, 97), color(24, 255, 146), color(90, 135, 255), color(251, 243, 140)};
+  spectrum = loadImage("data/spectrum.png");
 
   // display prompt
   drawPrompt();
@@ -96,7 +94,7 @@ public void draw() {
     background(52, 46, 61);
 
     // draw spectrum image
-    image(spectrum, 50, 20, 312, 80);
+    image(spectrum, 50, 20, 365, 153);
 
     smooth();
     drawPrompt();
@@ -216,7 +214,6 @@ public void checkEqual() {
 
 public void success() {
   is_success = true;
-  colors_index = round(random(0, 3));
   //reset();
 }
 

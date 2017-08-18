@@ -23,6 +23,7 @@ float max_frequency;
 PFont myFont;
 PImage spectrum;
 
+
 // shape global variables
 Shape sample_shape;
 Shape sound_shape;
@@ -44,7 +45,7 @@ void setup() {
 
   // load font & image
   myFont = createFont("data/RobotoMono-Light.ttf", 32);
-  spectrum = loadImage("data/spectrum.jpg");
+  spectrum = loadImage("data/spectrum.png");
 
   // display prompt
   drawPrompt();
@@ -74,7 +75,7 @@ void draw() {
     background(52, 46, 61);
 
     // draw spectrum image
-    image(spectrum, 50, 20, 312, 80);
+    image(spectrum, 50, 20, 365, 153);
 
     smooth();
     drawPrompt();
